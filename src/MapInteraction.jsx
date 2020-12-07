@@ -206,10 +206,16 @@ export class MapInteractionControlled extends Component {
     e.stopPropagation();
 
     const scaleChange = 2 ** (e.deltaY * 0.002);
-
+/*
     const newScale = clamp(
       this.props.minScale,
       this.props.value.scale + (1 - scaleChange),
+      this.props.maxScale
+    );
+*/
+    const newScale = clamp(
+      this.props.minScale,
+      this.props.value.scale + ((1 - scaleChange) * this.props.value.scale),
       this.props.maxScale
     );
 
