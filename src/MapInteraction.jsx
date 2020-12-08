@@ -106,17 +106,20 @@ export class MapInteractionControlled extends Component {
   }
 
   componentWillUnmount() {
-    this.getContainerNode().removeEventListener('wheel', this.onWheel);
+    const passiveOption = makePassiveEventOption(false);
+    const touchAndMouseEndOptions = { capture: true, ...passiveOption };
+
+    this.getContainerNode().removeEventListener('wheel', this.onWheel, passiveOption);
 
     // Remove touch events
-    this.getContainerNode().removeEventListener('touchstart', this.onTouchStart);
-    window.removeEventListener('touchmove', this.onTouchMove);
-    window.removeEventListener('touchend', this.onTouchEnd);
+    this.getContainerNode().removeEventListener('touchstart', this.onTouchStart, passiveOption);
+    window.removeEventListener('touchmove', this.onTouchMove, passiveOption);
+    window.removeEventListener('touchend', this.onTouchEnd, touchAndMouseEndOptions);
 
     // Remove mouse events
-    this.getContainerNode().removeEventListener('mousedown', this.onMouseDown);
-    window.removeEventListener('mousemove', this.onMouseMove);
-    window.removeEventListener('mouseup', this.onMouseUp);
+    this.getContainerNode().removeEventListener('mousedown', this.onMouseDown, passiveOption);
+    window.removeEventListener('mousemove', this.onMouseMove, passiveOption);
+    window.removeEventListener('mouseup', this.onMouseUp, touchAndMouseEndOptions);
   }
 
   /*
