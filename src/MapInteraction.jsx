@@ -146,6 +146,9 @@ export class MapInteractionControlled extends Component {
   }
 
   onTouchEnd(e) {
+    if (!this.startPointerInfo || this.props.disablePan) {
+      return;
+    }
     this.setPointerState(e.touches);
   }
 
