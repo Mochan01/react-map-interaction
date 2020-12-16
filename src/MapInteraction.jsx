@@ -233,8 +233,15 @@ export class MapInteractionControlled extends Component {
       return;
     }
 
+    const buildPoint = Array.from(pointers).map((point) => {
+      return {
+        clientX: point.clientX,
+        clientY: point.clientY
+      }
+    });
+
     this.startPointerInfo = {
-      pointers,
+      pointers: buildPoint,
       scale: this.props.value.scale,
       translation: this.props.value.translation,
     }
