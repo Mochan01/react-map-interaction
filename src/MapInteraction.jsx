@@ -208,14 +208,14 @@ export class MapInteractionControlled extends Component {
     e.preventDefault();
     e.stopPropagation();
 
-    const scaleChange = 2 ** (e.deltaY * 0.002);
-/*
-    const newScale = clamp(
-      this.props.minScale,
-      this.props.value.scale + (1 - scaleChange),
-      this.props.maxScale
-    );
-*/
+    let delta = e.deltaY;
+
+    // If firefox, Make wheel amount increase.
+    const userAgent = window.navigator.userAgent.toLowerCase();
+    if (userAgent.indexOf('firefox') != -1) delta = delta * 40;
+
+    const scaleChange = 2 ** (delta * 0.002);
+
     const newScale = clamp(
       this.props.minScale,
       this.props.value.scale + ((1 - scaleChange) * this.props.value.scale),
